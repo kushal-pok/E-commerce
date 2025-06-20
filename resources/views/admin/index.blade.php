@@ -1,6 +1,6 @@
-@extends('user.layouts.main')
+@extends('admin.includes.main')
 @push('title')
-<title>Dashboard - User</title>
+<title>Dashboard - Admin</title>
 @endpush
 
 @section('content')
@@ -11,27 +11,51 @@
                         <h1 class="my-4">Dashboard</h1>
                         
                         <div class="row">
-                            <div class="col-xl-6 col-md-6">
+                            <div class="col-xl-3 col-md-3">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body mx-auto mt-4">
+                                        <h5 class="text-dark">Total Orders</h5>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h2 class="text-center text-dark">15</h2>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-3">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body mx-auto mt-4">
+                                        <h5 class="text-dark">Total Commission</h5>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h2 class="text-center text-dark">₹ 10,699.00</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-3">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body mx-auto mt-4">
+                                        <h5 class="text-dark">Total Users</h5>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h2 class="text-center text-dark">50</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-3">
                                 <div class="card bg-info text-white mb-4">
-                                    <div class="card-body mx-auto">
-                                        <img src="{{url('dashboard/assets/img/user.png')}}" style="width:155px;">
+                                    <div class="card-body mx-auto mt-4">
+                                        <h5 class="text-dark">Total Vendors</h5>
                                     </div>
-                                    <div class="my-3">
-                                        <h5 class="text-center text-dark">Anil Pokhrel</h5>
+                                    <div class="mb-4">
+                                        <h2 class="text-center text-dark">25</h2>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-md-6 " >
-                                <div class="card bg-info text-white mb-4" style="height:250px">
-                                    <div class="card-body mx-auto my-4">
-                                        <h5 class="text-dark">Billing Address</h5>
-                                        <h6 class="text-dark">Reference site about Lorem Ipsum, giving information on its origins </h6>
-                                        <span class="text-dark"><strong>Email:</strong> anilpokhrel029@gmail.com</span><br>
-                                        <span class="text-dark"><strong>Phone:</strong> +77 9826196028</span><br>
-                                    </div>
-                                   
-                                </div>
-                            </div>
+                           
                             
                         </div>
                         <div class="row">
@@ -39,7 +63,7 @@
                                 <div class="d-flex">
                                     <h4>Recent Orders</h4>
                                     <div class="ms-auto">
-                                    <a href="{{url('user/order-history')}}" class="text-decoration-none btn btn-dark btn-sm">View All</a>
+                                    <a href="{{url('admin/orders')}}" class="text-decoration-none btn btn-dark btn-sm">View All</a>
                                     </div>
                                 </div>
 
@@ -60,7 +84,7 @@
                                                 <td>₹ 1499.00</td>
                                                 <td>
                                                 <span class="badge rounded-pill text-bg-warning">Processing</span>
-                                                <a href="{{url('user/detail')}}" class="text-decoration-none mx-2">View Details</a>
+                                                <a href="{{url('admin/order-detail')}}" class="text-decoration-none mx-2">View Details</a>
                                                 </td>
                                                 </tr>
 
@@ -70,7 +94,7 @@
                                                 <td>₹ 1499.00</td>
                                                 <td>
                                                 <span class="badge rounded-pill text-bg-info">On the Way</span>
-                                                <a href="{{url('user/detail')}}" class="text-decoration-none mx-2">View Details</a>
+                                                <a href="{{url('admin/order-detail')}}" class="text-decoration-none mx-2">View Details</a>
                                                 </td>
                                                 </tr>
 
@@ -80,7 +104,7 @@
                                                 <td>₹ 1499.00</td>
                                                 <td>
                                                 <span class="badge rounded-pill text-bg-success">Delevered</span>
-                                                <a href="{{url('user/detail')}}" class="text-decoration-none mx-2">View Details</a>
+                                                <a href="{{url('admin/order-detail')}}" class="text-decoration-none mx-2">View Details</a>
                                                 </td>
                                                 </tr>
                                                 
