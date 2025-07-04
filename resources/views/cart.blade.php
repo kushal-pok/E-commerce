@@ -26,7 +26,7 @@
                           <th scope="col"><h4>Remove</h4></th>
                         </tr>
                       </thead>
-                      <tbody>
+                      {{-- <tbody>
                         <tr>
                           <th>
                             <div class="d-flex">
@@ -78,32 +78,75 @@
                            <td><button type="button" class="btn-close rounded-circle" aria-label="Close"></button></td>
                         </tr>
                        
-                      </tbody>
+                      </tbody> --}}
+                      <tbody>
+                        
+<tbody>
+    @php
+    $subtotal=0;
+    $total=0;
+    @endphp
+@foreach($cartItems as $id => $item)
+    @php
+        $subtotal = $item['price'] * $item['quantity']; 
+        $total += $subtotal; 
+    @endphp
+    <tr>
+        <td>
+            <div class="d-flex">
+                <img src="{{ url($item['image']) }}" alt="Product Image" width="70" class="rounded-3">
+                <div class="p-3">
+                    <h5>{{ $item['name'] }}</h5>
+                </div>
+            </div>
+        </td>
+        <td>Rs. {{ $item['price'] }}</td>
+        <td>{{ $item['quantity'] }}</td>
+        <td>Rs. {{ $subtotal }}</td>
+        <td>
+            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-close" aria-label="Close"></button>
+            </form>
+        </td>
+    </tr>
+@endforeach
+<div class="text-end">
+    <h5>Subtotal: Rs. {{ $total }}</h5>
+    <h5>Discount: 10%</h5>
+    <h5>Total: Rs. {{ $total * 0.9 }}</h5>
+</div>
+</tbody>
+
+
+
+</tbody>
                     </table>
                 </div>
-                <div class="col-lg-5 ms-auto  my-5 text-black">
-                    <h3>Product Details</h3><hr>
-               
-                <div class="d-flex">
-                    <div><h5>Subtotal</h5></div>
-                    <div class="ms-auto"><h5>$450</h5></div>
-                </div>
-                 <div class="d-flex my-2">
-                    <div><h5>Discount</h5></div>
-                    <div class="ms-auto"><h5>10%</h5></div>
-                </div>
-                 <div class="d-flex my-2">
-                    <div><h5>Delivery Charge</h5></div>
-                    <div class="ms-auto"><h5>Free</h5></div>
-                </div><hr>
-                  <div class="d-flex my-2">
-                    <div><h5>Total</h5></div>
-                    <div class="ms-auto"><h5>$405</h5></div>
-                </div>
-                <div class="mt-4">
-                      <a href="{{url('/checkout')}}" class="btn btn-cart text-black rounded-pill w-100">Proceed to checkout          <i class="fa-solid fa-arrow-right "></i></a>
-                </div>
-                 </div>
+
+                 @php
+    $discount = 0.10; 
+    $discountAmount = $subtotal * $discount;
+    $total = $subtotal - $discountAmount;
+@endphp
+
+<div class="d-flex">
+    <div><h5>Subtotal</h5></div>
+    <div class="ms-auto"><h5>${{ $subtotal }}</h5></div>
+</div>
+<div class="d-flex my-2">
+    <div><h5>Discount</h5></div>
+    <div class="ms-auto"><h5>10%</h5></div>
+</div>
+<div class="d-flex my-2">
+    <div><h5>Delivery Charge</h5></div>
+    <div class="ms-auto"><h5>Free</h5></div>
+</div><hr>
+<div class="d-flex my-2">
+    <div><h5>Total</h5></div>
+    <div class="ms-auto"><h5>${{ $total }}</h5></div>
+</div>
             </div>
         </div>
     </section>

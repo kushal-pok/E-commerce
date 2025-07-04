@@ -29,17 +29,15 @@
         <li><a href="{{route('about')}}">About</a></li>
         <li><a href="{{route('contact')}}">Contact</a></li>
 
-        <li>
-            <a href="{{ route('cart') }}">
-                <button class="btn-cart position-relative">
-                    {{-- <i class="fas fa-shopping-cart"> --}}cart
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:15px; color: white;">
-                        1
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
-                </button>
-            </a>
-        </li>
+        <li class="nav-item" id="shoppingCart">
+                        <a class="nav-link {{ request()->is('cart') ? 'nav-active' : '' }}" href="{{ route('cart') }}">
+                            <i class="fas fa-shopping-cart"></i>
+                            @if(session('cart_count') > 0)
+                                <span class="cart-count">{{ session('cart_count') }}</span>
+                                                            @endif
+                        </a>
+                    </li>
+
 
         <ul class="navbar-na ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">

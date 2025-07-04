@@ -32,7 +32,10 @@
                         <li><a class="dropdown-item" href="{{url('user/settings')}}">Settings</a></li>
                         <li><a class="dropdown-item" href="{{url('/home')}}" target="_blank">GoTo Website</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{{url('user/logout')}}">Logout</a></li>
+                         <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
                     </ul>
                 </li>
             </ul>

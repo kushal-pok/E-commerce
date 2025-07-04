@@ -1,6 +1,6 @@
  @extends('layouts.main')
  @push('title')
-        <title>ProductDetails</title>
+        <title>{{ $product['name'] }} - Details</title>
  @endpush
 
 @section('content')
@@ -15,12 +15,12 @@
        <div class="container">
               <div class="row">
                      <div class="col-lg-4">
-                                   <img src="{{url('assets/image/product/img1.webp')}}" class="rounded img-fluid" alt="..." style="width: 100%; height: 40vh;">
+                                   <img src="{{url($product['image'])}}" class="rounded img-fluid" alt="{{ $product['name'] }}" style="width: 100%; height: 40vh;">
                             </div>
                         <div class="col-lg-8">
                      <div>
-                     <h2 class="text-black">Kitchen Salt</h2>
-                     <h4 class="text-black">Rs. 350</h4>
+                     <h2 class="text-black">{{ $product['name'] }}</h2>
+                     <h4 class="text-black">Rs. {{ $product['price'] }}</h4>
                      <input type="number" value="1" class="qty text-black">
                             <div class="rate">
                             <i class="fas fa-star"></i>
@@ -38,25 +38,22 @@
                      </p>
                      
                      <div>
-                            <a href="{{route('cart')}}" class="btn btn-cart text-black rounded-pill">Add to cart</a>
-                            <a href="{{route('checkout')}}" class="btn btn-buy text-black rounded-pill">Buy Now</a>
+                           <form action="{{ route('cart.add') }}" method="POST">
+    @csrf
+    <input type="hidden" name="id" value="1"> 
+<input type="hidden" name="name" value="{{$product['name']}}">
+    <input type="hidden" name="price" value="{{$product['price']}}">
+    <input type="hidden" name="image" value="{{url($product['image'])}}">
+    <input type="number" name="quantity" value="1" class="qty text-black w-25">
+    <button type="submit" class="btn btn-cart text-black rounded-pill">Add to cart</button>
+      <a href="{{route('checkout')}}" class="btn btn-buy text-black rounded-pill">Buy Now</a>
+</form>
+                          
                      </div>
                      </div>
               </div>
        </div>
 </div>
-<div class="my-5">
-       <h4 class="text-black">Product Description</h4>
-        <p class="text-black">Organize your pantry in style with our premium Glass Storage Jar Set. Each jar features a sleek, airtight metal lid and clear body for easy visibility of contents. Pre-labeled with modern, minimalist typography, these jars are perfect for storing dry goods such as pasta, lentils, quinoa, coffee beans, and protein powder.
-                     Elevate your pantry or kitchen shelves with our beautifully designed Modern Glass Storage Jars. These multipurpose containers are crafted from thick, high-quality glass to showcase your dry goods while keeping them fresh with airtight stainless steel lids. Each jar is pre-labeled with clean, black handwritten-style text, eliminating the need for stickers or markers.
-                     </p>
-                      <p class="text-black">Organize your pantry in style with our premium Glass Storage Jar Set. Each jar features a sleek, airtight metal lid and clear body for easy visibility of contents. Pre-labeled with modern, minimalist typography, these jars are perfect for storing dry goods such as pasta, lentils, quinoa, coffee beans, and protein powder.
-                     Elevate your pantry or kitchen shelves with our beautifully designed Modern Glass Storage Jars. These multipurpose containers are crafted from thick, high-quality glass to showcase your dry goods while keeping them fresh with airtight stainless steel lids. Each jar is pre-labeled with clean, black handwritten-style text, eliminating the need for stickers or markers.
-                     </p>
-                      <p class="text-black">Organize your pantry in style with our premium Glass Storage Jar Set. Each jar features a sleek, airtight metal lid and clear body for easy visibility of contents. Pre-labeled with modern, minimalist typography, these jars are perfect for storing dry goods such as pasta, lentils, quinoa, coffee beans, and protein powder.
-                     Elevate your pantry or kitchen shelves with our beautifully designed Modern Glass Storage Jars. These multipurpose containers are crafted from thick, high-quality glass to showcase your dry goods while keeping them fresh with airtight stainless steel lids. Each jar is pre-labeled with clean, black handwritten-style text, eliminating the need for stickers or markers.
-                     </p>
-</div> 
 {{--review--}}
   <section class="my-5">
        <h2 class="text-black">02 Review</h2>

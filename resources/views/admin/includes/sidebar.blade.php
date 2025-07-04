@@ -4,7 +4,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             
-                            <a class="nav-link" href="{{url('admin')}}">
+                            <a class="nav-link" href="{{url('admin/index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -22,10 +22,6 @@
                             <a class="nav-link" href="{{url('admin/users')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Manage Users
-                            </a>
-                            <a class="nav-link" href="{{url('admin/vendors')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users-rectangle"></i></div>
-                                Manage Vendors
                             </a>
                             <a class="nav-link" href="{{url('admin/orders')}}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-down-short-wide"></i></div>

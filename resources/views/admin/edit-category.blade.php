@@ -17,14 +17,24 @@
                                     
                                         <div class="row mt-3">
                                         <div class="col-lg-12 mb-3">
-                                            <label class="form-label">Category Name</label>
-                                            <input type="text" class="form-control" value="Kit">
+                                            <label class="form-label">Product Name</label>
+                                            <input type="text" class="form-control" value="">
                                         </div>
 
                                         <div class="col-lg-12 mb-3">
-                                            <label class="form-label">Commission (%)</label>
-                                            <input type="text" class="form-control" value="20">
+                                            <label class="form-label">Product Price</label>
+                                            <input type="text" class="form-control" value="">
                                         </div>
+
+                                         <div class="col-lg-12 mb-3">
+                                            <label class="form-label">Product Quntaty</label>
+                                            <input type="text" class="form-control" value="">
+                                        </div>
+
+                                         <div class="mb-3">
+                <label>Product Details</label>
+                <textarea name="product_details" class="form-control" required></textarea>
+            </div>
 
                                         
                                         <div class="col-lg-3">

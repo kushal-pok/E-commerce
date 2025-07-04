@@ -4,45 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-class AdminController extends Controller
+
+class ProductController extends Controller
 {
-
-    public function index(){
-        return view('admin/index');
-    }
-
-    public function addcategory(){
-        return view('admin/add-category');
-    }
-
-    public function viewcategory(){
-        return view('admin/view-category');
-    }
-
-    public function editcategory(){
-        return view('admin/edit-category');
-    }
-
-    public function users(){
-        return view('admin/users');
-    }
-
-
-    public function orders(){
-        return view('admin/orders');
-    }
-
-
-    public function orderdetail(){
-        return view('admin/order-detail');
-    }
-
-    
-
-     public function products(){
-        return view('admin/products');
-     }
-       public function store(Request $request)
+      public function store(Request $request)
     {
         $request->validate([
             'category_name' => 'required|string|max:255',
@@ -66,5 +31,4 @@ class AdminController extends Controller
 
         return back()->with('success', 'Product added successfully!');
     }
-    
 }

@@ -38,7 +38,7 @@
 
 		      		<!-- Start Column 1 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 1])}}">
 							<img src="{{url('assets/image/product/img1.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -53,7 +53,7 @@
 						
 					<!-- Start Column 2 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails' ,['id' => 2])}}">
 							<img src="{{url('assets/image/product/img2.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -68,7 +68,7 @@
 
 					<!-- Start Column 3 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails' ,['id' => 3])}}">
 							<img src="{{url('assets/image/product/image3.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Kruzo Aero Chair</h3>
@@ -83,7 +83,7 @@
 
 					<!-- Start Column 4 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href=""{{route('productdetails')}}>
+						<a class="product-item" href=""{{route('productdetails',['id' => 4])}}>
 							<img src="{{url('assets/image/product/img4.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-danger">Sale</span></h6>
 							<h3 class="product-title">Ergonomic Chair</h3>
@@ -99,7 +99,7 @@
 
 					<!-- Start Column 1 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 5])}}">
 							<img src="{{url('assets/image/product/img5.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -114,7 +114,7 @@
 						
 					<!-- Start Column 2 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 6])}}">
 							<img src="{{url('assets/image/product/img6.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -129,7 +129,7 @@
 
 					<!-- Start Column 3 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 7])}}">
 							<img src="{{url('assets/image/product/img8.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Kruzo Aero Chair</h3>
@@ -144,7 +144,7 @@
 
 					<!-- Start Column 4 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 8])}}">
 							<img src="{{url('assets/image/product/img9.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-danger">Sale</span></h6>
 							<h3 class="product-title">Ergonomic Chair</h3>
@@ -176,7 +176,7 @@
 
 		      		<!-- Start Column 1 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 9])}}">
 							<img src="{{url('assets/image/product/img10.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-danger">New</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -191,7 +191,7 @@
 						
 					<!-- Start Column 2 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 10])}}">
 							<img src="{{url('assets/image/product/img9.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-danger">New</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -206,7 +206,7 @@
 
 					<!-- Start Column 3 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 11])}}">
 							<img src="{{url('assets/image/product/img8.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-danger">New</span></h6>
 							<h3 class="product-title">Kruzo Aero Chair</h3>
@@ -221,7 +221,7 @@
 
 					<!-- Start Column 4 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href=""{{route('productdetails')}}>
+						<a class="product-item" href=""{{route('productdetails',['id' => 12])}}>
 							<img src="{{url('assets/image/product/img4.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-danger">New</span></h6>
 							<h3 class="product-title">Ergonomic Chair</h3>
@@ -237,7 +237,7 @@
 
 					<!-- Start Column 1 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 13])}}">
 							<img src="{{url('assets/image/product/img5.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -252,7 +252,7 @@
 						
 					<!-- Start Column 2 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 14])}}">
 							<img src="{{url('assets/image/product/img6.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Nordic Chair</h3>
@@ -267,7 +267,7 @@
 
 					<!-- Start Column 3 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="{{route('productdetails')}}">
+						<a class="product-item" href="{{route('productdetails',['id' => 15])}}">
 							<img src="{{url('assets/image/product/img8.webp')}}" class="img-fluid product-thumbnail">
 								<h6><span class="badge bg-success">Available</span></h6>
 							<h3 class="product-title">Kruzo Aero Chair</h3>
@@ -278,6 +278,23 @@
 							</span>
 						</a>
 					</div>
+					{{-- <div class="container">
+    <h1>{{ $product->product_name }}</h1>
+    <img src="{{ asset('public/' . $product->product_image) }}" alt="{{ $product->product_name }}" class="img-fluid">
+    <p><strong>Price:</strong> ${{ $product->product_price }}</p>
+    <p>{{ $product->product_details }}</p>
+</div> --}}
+
+			@foreach ($products as $product)
+<div class="col-12 col-md-4 col-lg-3 mb-5">
+    <a class="product-item" href="{{ route('shop', ['id' => $product->id]) }}">
+        <img src="{{ asset('storage/' . $product->product_image) }}" class="img-fluid product-thumbnail">
+        <h6><span class="badge bg-success">Available</span></h6>
+        <h3 class="product-title">{{ $product->product_name }}</h3>
+        <strong class="product-price">${{ $product->product_price }}</strong>
+    </a>
+</div>
+@endforeach
 					<!-- End Column 3 -->
 
     </body>

@@ -5,44 +5,59 @@
 
 @section('content')
         
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                    <div class="card p-4 mt-4">
-                            <div class="row">
-                            
-                            <div class="col-xl-8 col-md-8">
-                                    <h4>Add Category</h4>
+          <div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="container mt-4">
+    <div class="card p-4">
+        <h4>Add New Product</h4>
 
-                                    
-                                        <div class="row mt-3">
-                                        <div class="col-lg-12 mb-3">
-                                            <label class="form-label">Category Name</label>
-                                            <input type="text" class="form-control" placeholder="kit">
-                                        </div>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-                                        <div class="col-lg-12 mb-3">
-                                            <label class="form-label">Commission (%)</label>
-                                            <input type="text" class="form-control" placeholder="20">
-                                        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            @csrf
 
-                                        
-                                        <div class="col-lg-3">
-                                            <button class="btn btn-primary ">Add Category</button>
-                                        </div>
-                                        </div>
-                                    
-                            </div>
+            <div class="mb-3">
+                <label>Category Name</label>
+                <input type="text" name="category_name" class="form-control" required>
+            </div>
 
-                            
-                            </div>
+            <div class="mb-3">
+                <label>Product Name</label>
+                <input type="text" name="product_name" class="form-control" required>
+            </div>
 
-                            
-                        </div>
-                </main>
+            <div class="mb-3">
+                <label>Product Details</label>
+                <textarea name="product_details" class="form-control" required></textarea>
+            </div>
 
+            <div class="mb-3">
+                <label>Product Price</label>
+                <input type="number" name="product_price" class="form-control" required>
+            </div>
 
-                
+            <div class="mb-3">
+                <label>Commission (%)</label>
+                <input type="number" name="commission" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Product Image</label>
+                <input type="file" name="product_image" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+</div>
+
+        </div>
+    </main>
+</div>
+
 
 @endsection
                 

@@ -21,69 +21,34 @@
                                 <thead>
                                     <tr>
                                     <th scope="col"><h5>Sr. No.</h5></th>
-                                    <th scope="col"><h5>Category Name</h5></th>
-                                    <th scope="col"><h5>Commission (%)</h5></th>
+                                    <th scope="col"><h5>Product Name</h5></th>
+                                    <th scope="col"><h5>Price</h5></th>
                                   
                                     <th scope="col"><h5>Action</h5></th>
                                     
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr >
-                                    
-                                    <td>01</td>
-                                    <td>Electronics</td>
-                                    <td>20</td>
-                                    
-                                    <td>
-                                        <a href="{{url('admin/edit-category')}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                
-                                    </tr>
-
-                                    <tr >
-                                    
-                                    <td>01</td>
-                                    <td>Electronics</td>
-                                    <td>20</td>
-                                    
-                                    <td>
-                                        <a href="{{url('admin/edit-category')}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                
-                                    </tr>
-
-                                    <tr >
-                                    
-                                    <td>01</td>
-                                    <td>Electronics</td>
-                                    <td>20</td>
-                                    
-                                    <td>
-                                        <a href="{{url('admin/edit-category')}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                
-                                    </tr>
-
-                                    <tr >
-                                    
-                                    <td>01</td>
-                                    <td>Electronics</td>
-                                    <td>20</td>
-                                    
-                                    <td>
-                                        <a href="{{url('admin/edit-category')}}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                
-                                    </tr>
-
-                                    
-                                    
-                                </tbody>
+                            <tbody>
+    @foreach($categories as $key => $category)
+    <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>{{ $category->product_name }}</td>
+        <td>${{ $category->price }}</td>
+        <td>
+            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
                                 </table>
                                     </div>
                                         
