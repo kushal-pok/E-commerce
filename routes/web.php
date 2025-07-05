@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserSettingsController;
+use App\Http\Controllers\Admin\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,5 +65,22 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/user/detail/{order}', [UserController::class, 'orderDetail'])->name('user.orders.detail');
     //   Route::get('details', [UserController::class, 'create']);
 });
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+    Route::get('/admin/register', [AuthController::class, 'showRegisterForm'])->name('admin.register');
+Route::post('/admin/register', [AuthController::class, 'register'])->name('admin.register.submit');
+
+    
+
+
+
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
+    });
+});
+
 
 

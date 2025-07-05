@@ -1,4 +1,5 @@
-@extends('vendor.layouts.main')
+@extends('admin.layouts.main')
+
 @push('title')
 <title>Admin Login</title>
 @endpush
@@ -10,37 +11,41 @@
             <div class="col-lg-10">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div>
-                        <img src="{{asset('dashboard/assets/img/admin.jpg')}}" class="rounded-3 img-fluid">
-                        </div>
+                        <img src="{{ asset('dashboard/assets/img/admin.jpg') }}" class="rounded-3 img-fluid">
                     </div>
 
                     <div class="col-lg-6 mt-5 p-5">
-                        <div>
-                            <form>
-                                <div class="row">
-                                    
+                        <form method="POST" action="{{ route('admin.login.submit') }}">
+                            @csrf
 
-                                    <div class="col-lg-12 mb-3">
-                                    <label  class="form-label">Username</label>
-                                        <input type="text" class="form-control" placeholder="John Doe">
-                                    </div>
+                            <h3 class="mb-4">Admin Login</h3>
 
-                                   
-
-                                    <div class="col-lg-12 mb-3">
-                                    <label  class="form-label">Password</label>
-                                        <input type="password" class="form-control" placeholder="******">
-                                    </div>
-
-                                   
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    {{ $errors->first() }}
                                 </div>
-                               
-                                <a href="#" type="btn" class="btn btn-primary text-light form-control form-control-lg">Login</a>
-                                
-                            </form>
-                        </div>
+                            @endif
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" name="email" class="form-control" placeholder="admin@example.com" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="******" required>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Login as Admin</button>
+                            </div>
+                        </form>
                     </div>
+                      {{-- <div class="d-flex justify-content-end mt-3">
+    <a href="{{ route('admin.register') }}" class="btn btn-outline-primary bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Register as Admin
+    </a> --}}
+</div>
                 </div>
             </div>
         </div>

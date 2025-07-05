@@ -60,34 +60,56 @@
 </div>
             </section>
 
-            <!-- Auth Buttons -->
-            @if (Route::has('login'))
-                <div class="flex items-center gap-4 not-has-[nav]:hidden">
-                    @auth
-                        <a
-                            href="{{ url('/home') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#19190d] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Home Page
-                        </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#1e1e0f] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal "
-                        >
-                            Log in
-                        </a>
+          <!-- Auth Buttons -->
+@if (Route::has('login'))
+    <div class="flex items-center gap-4 not-has-[nav]:hidden">
+        @auth
+            <a
+                href="{{ url('/home') }}"
+                class="inline-block px-5 py-1.5 dark:text-[#19190d] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+            >
+                Dashboard
+            </a>
+        @else
+            <!-- Login Dropdown -->
+            <div class="relative group">
+                <button
+                    class="inline-block px-5 py-1.5 dark:text-[#1e1e0f] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                >
+                    Login
+                </button>
 
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 text-white border-[#19140035] hover:border-[#1915014a] border  dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm info__button ">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
+                <!-- Dropdown menu -->
+                <div
+                    class="absolute z-50 hidden group-hover:block bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 mt-2 rounded-md shadow-lg"
+                >
+                    <a
+                        href="{{ route('login') }}"
+                        class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+                    >
+                        User Login
+                    </a>
+                    <a
+                        href="{{ route('admin.login') }}"
+                        class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+                    >
+                        Admin Login
+                    </a>
                 </div>
+            </div>
+
+            @if (Route::has('register'))
+                <a
+                    href="{{ route('register') }}"
+                    class="inline-block px-5 py-1.5 text-white border-[#19140035] hover:border-[#1915014a] border dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm info__button"
+                >
+                    Register
+                </a>
             @endif
+        @endauth
+    </div>
+@endif
+
         </div>
     </div>
 </header>
