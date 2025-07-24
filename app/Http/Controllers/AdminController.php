@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\User;
+
 class AdminController extends Controller
 {
 
-    public function index(){
-        return view('admin/index');
-    }
+    // public function index(){
+    //     return view('admin/index');
+    // }
 
     public function addcategory(){
         return view('admin/add-category');
@@ -24,19 +27,46 @@ class AdminController extends Controller
     }
 
     public function users(){
-        return view('admin/users');
+       $users = User::all(); 
+        return view('admin.users', compact('users'));
+    }
+     public function blockUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 'blocked';  // Assuming you have a 'status' field to track block/unblock
+        $user->save();
+
+        return redirect()->route('admin.users')->with('success', 'User blocked successfully.');
+    }
+
+    // Unblock a user
+    public function unblockUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = 'active';
+        $user->save();
+
+        return redirect()->route('admin.users')->with('success', 'User unblocked successfully.');
     }
 
 
     public function orders(){
-        return view('admin/orders');
+        $orders = Order::with('user')->get();
+        return view('admin.orders', compact('orders'));
     }
 
 
-    public function orderdetail(){
-        return view('admin/order-detail');
-    }
+//   public function orderdetail($id)
+// {
+//     $order = Order::with(['user', 'orderItems.product'])->findOrFail($id);
+//     return view('admin.order-detail', compact('order'));
+// }
 
+public function orderDetail($id)
+{
+    $order = Order::with(['user', 'orderItems.product'])->findOrFail($id);
+    return view('admin.order-detail', compact('order'));
+}
     
 
      public function products(){
@@ -66,5 +96,15 @@ class AdminController extends Controller
 
         return back()->with('success', 'Product added successfully!');
     }
+    public function index()
+{
+    return view('admin.index', [
+        'totalOrders'     => Order::count(),
+        'totalUsers'      => User::where('role', 'user')->count(),
+        'totalVendors'    => User::where('role', 'vendor')->count(),
+        'totalCommission' => Order::sum('commission'), // assuming 'commission' column exists
+        'recentOrders'    => Order::latest()->take(5)->get(),
+    ]);
+}
     
 }

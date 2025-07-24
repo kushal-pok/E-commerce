@@ -17,7 +17,6 @@ return new class extends Migration
         $table->string('product_name');
         $table->text('product_details');
         $table->decimal('product_price', 10, 2);
-        $table->decimal('commission', 5, 2);
         $table->string('product_image'); // ✅ only once
         $table->timestamps();
     });

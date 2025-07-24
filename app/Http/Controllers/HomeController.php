@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Product;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -74,8 +77,28 @@ class HomeController extends Controller
     }  
 
     public function checkout(){
-        return view('checkout');
+         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+
+    return view('checkout', compact('cartItems'));
     } 
+     public function placeOrder(Request $request)
+    {
+        // Validate input
+        $request->validate([
+            'first_name'      => 'required|string',
+            'last_name'       => 'required|string',
+            'email'           => 'required|email',
+            'phone'           => 'required',
+            'address'         => 'required|string',
+            'district'        => 'required',
+            'payment_method'  => 'required|in:cod,esewa,imepay',
+        ]);
+
+        // You can store order in DB here (order table, order_items, etc.)
+        // For now, just return a simple success message
+
+        return redirect()->back()->with('success', 'Order placed successfully!');
+    }
 
      public function about(){
         return view('about');

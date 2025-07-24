@@ -16,7 +16,9 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <form action="" method="POST" enctype="multipart/form-data">
+        {{-- <form action="" method="POST" enctype="multipart/form-data"> --}}
+            <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+
             @csrf
 
             <div class="mb-3">
@@ -39,10 +41,6 @@
                 <input type="number" name="product_price" class="form-control" required>
             </div>
 
-            <div class="mb-3">
-                <label>Commission (%)</label>
-                <input type="number" name="commission" class="form-control" required>
-            </div>
 
             <div class="mb-3">
                 <label>Product Image</label>

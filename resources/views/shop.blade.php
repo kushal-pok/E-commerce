@@ -83,11 +83,11 @@
 
 					<!-- Start Column 4 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href=""{{route('productdetails',['id' => 4])}}>
+						<a class="product-item" href="{{route('productdetails' ,['id' => 4])}}">
 							<img src="{{url('assets/image/product/img4.webp')}}" class="img-fluid product-thumbnail">
-								<h6><span class="badge bg-danger">Sale</span></h6>
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
+								<h6><span class="badge bg-success">Available</span></h6>
+							<h3 class="product-title">Kruzo Aero Chair</h3>
+							<strong class="product-price">$78.00</strong>
 
 							<span class="icon-cross">
 								<img src="{{url('assets/image/product/cross.svg')}}" class="img-fluid">
@@ -278,24 +278,28 @@
 							</span>
 						</a>
 					</div>
-					{{-- <div class="container">
-    <h1>{{ $product->product_name }}</h1>
-    <img src="{{ asset('public/' . $product->product_image) }}" alt="{{ $product->product_name }}" class="img-fluid">
-    <p><strong>Price:</strong> ${{ $product->product_price }}</p>
-    <p>{{ $product->product_details }}</p>
-</div> --}}
+					<div class="container mt-5">
+    <h2>Shop Products</h2>
 
-			@foreach ($products as $product)
-<div class="col-12 col-md-4 col-lg-3 mb-5">
-    <a class="product-item" href="{{ route('shop', ['id' => $product->id]) }}">
-        <img src="{{ asset('storage/' . $product->product_image) }}" class="img-fluid product-thumbnail">
-        <h6><span class="badge bg-success">Available</span></h6>
-        <h3 class="product-title">{{ $product->product_name }}</h3>
-        <strong class="product-price">${{ $product->product_price }}</strong>
-    </a>
+    <div class="row">
+        @forelse($products as $product)
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="{{ asset('storage/' . $product->product_image) }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->product_name }}</h5>
+                        <p class="card-text">{{ Str::limit($product->product_details, 60) }}</p>
+                        <p><strong>Rs.</strong> {{ $product->product_price }}</p>
+                        <span class="badge bg-info">{{ $product->category_name }}</span>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <p>No products found.</p>
+        @endforelse
+    </div>
 </div>
-@endforeach
-					<!-- End Column 3 -->
+
 
     </body>
 

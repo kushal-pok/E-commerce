@@ -9,6 +9,8 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +26,7 @@ Route::controller(HomeController::class) -> group(function() {
      Route::get('cart', 'cart') -> name('cart');
       Route::get('productdetails/{id}', 'productdetails') -> name('productdetails');
       Route::get('checkout', 'checkout') -> name('checkout');
+    Route::post('/checkout1', 'placeOrder') -> name('checkout.placeOrder');
       Route::delete('/cart/remove/{id}','removeItem')->name('cart.remove');
       Route::post('/cart/add','addToCart')->name('cart.add');
 });
@@ -46,7 +49,7 @@ Route::controller(AdminController::class)->group(function()
     Route::get('admin/users', 'users') -> name('admin.user');
     Route::get('admin/edit-category', 'editcategory') -> name('admin.edit');
     Route::get('admin/orders', 'orders') -> name('admin.order');
-    Route::get('admin/order-detail', 'orderdetail') -> name('admin.detail');
+   Route::get('admin/order-detail/{id}',  'orderDetail')->name('admin.detail');
         Route::get('admin/products', 'products') -> name('admin.products');
         Route::post('/admin/add-category',  'store')->name('admin.add');
 });
@@ -74,13 +77,36 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::post('/admin/register', [AuthController::class, 'register'])->name('admin.register.submit');
 
     
-
-
-
-    Route::middleware('auth:admin')->group(function () {
-        Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
-    });
 });
 
 
+    // Route::middleware('auth:admin')->group(function () {
+    //     Route::get('/admin/index', fn () => view('admin.index'))->name('dashboard');
+    // });
 
+
+Route::get('/admin/add-product', [ProductController::class, 'create'])->name('admin.products.create');
+
+
+Route::post('/admin/add-product', [ProductController::class, 'store'])->name('admin.products.store');
+
+
+Route::get('/shop', [ProductController::class, 'shop'])->name('shop');
+
+
+Route::resource('admin/products', ProductController::class);
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/productdetails/{id}', [ShopController::class, 'productdetails'])->name('productdetails');
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('products', ProductController::class);
+});
+
+Route::post('admin/users/{id}/block', [AdminController::class, 'blockUser'])->name('admin.users.block');
+Route::post('admin/users/{id}/unblock', [AdminController::class, 'unblockUser'])->name('admin.users.unblock');
+
+
+// Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
+Route::get('/admin/add-user', [UserController::class, 'storeUser']);

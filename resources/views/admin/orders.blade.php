@@ -4,121 +4,65 @@
 @endpush
 
 @section('content')
-        
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                    <div class="card p-4 mt-4">
-                            <div class="row">
-                                <div class="col-xl-12 col-md-12">
-                                    <div class="d-flex">
-                                        <h4>Orders</h4>
-                                        
-                                    </div>
-                                    <div class="mt-3">
-                                        <table id="datatablesSimple">
-                                            <thead>
-                                                <tr>
-                                                <th scope="col">Order Id</th>
-                                                <th scope="col">Customer Name</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Commission (%)</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                <th scope="row">001</th>
-                                                <td>John Doe</td>
-                                                <td>₹ 1499.00</td>
-                                                <td>₹ 149.00</td>
-                                                <td>
-                                                    <span class="badge rounded-pill text-bg-warning">Pending</span>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-truck"></i></a>
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i></a> -->
-                                                    <a href="{{('order-detail')}}" class="btn btn-warning btn-sm"><i class="fa-regular fa-eye"></i></a>
-                                                </td>
-                                                </tr>
 
-                                                <tr>
-                                                <th scope="row">001</th>
-                                                <td>John Doe</td>
-                                                <td>₹ 1499.00</td>
-                                                <td>₹ 149.00</td>
-                                                <td>
-                                                    <span class="badge rounded-pill text-bg-success">Delevered</span>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-truck"></i></a>
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i></a> -->
-                                                    <a href="{{('order-detail')}}" class="btn btn-warning btn-sm"><i class="fa-regular fa-eye"></i></a>
-                                                </td>
-                                                </tr>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="card p-4 mt-4">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12">
+                        <div class="d-flex">
+                            <h4>Orders</h4>
+                        </div>
+                        <div class="mt-3">
+                            <table id="datatablesSimple" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Order Id</th>
+                                        <th>Customer Name</th>
+                                        <th>Total</th>
+                                        <th>Commission (₹)</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($orders as $order)
+                                    <tr>
+                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $order->user->name ?? 'Guest' }}</td>
+                                        <td>₹ {{ number_format($order->total_amount, 2) }}</td>
+                                        <td>₹ {{ number_format($order->commission ?? 0, 2) }}</td>
+                                        <td>
+                                            <span class="badge rounded-pill text-bg-{{ 
+                                                $order->status == 'Pending' ? 'warning' :
+                                                ($order->status == 'On the Way' ? 'info' :
+                                                ($order->status == 'Delivered' ? 'success' : 'secondary'))
+                                            }}">
+                                                {{ $order->status }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.detail', $order->id) }}" class="btn btn-warning btn-sm">
+                                                <i class="fa-regular fa-eye"></i> View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @if(count($orders) === 0)
+                                    <tr>
+                                        <td colspan="6" class="text-center">No orders found.</td>
+                                    </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
 
-                                                <tr>
-                                                <th scope="row">001</th>
-                                                <td>John Doe</td>
-                                                <td>₹ 1499.00</td>
-                                                <td>₹ 149.00</td>
-                                                <td>
-                                                    <span class="badge rounded-pill text-bg-info">On the way</span>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-truck"></i></a>
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i></a> -->
-                                                    <a href="{{('order-detail')}}" class="btn btn-warning btn-sm"><i class="fa-regular fa-eye"></i></a>
-                                                </td>
-                                                </tr>
-
-                                                <tr>
-                                                <th scope="row">001</th>
-                                                <td>John Doe</td>
-                                                <td>₹ 1499.00</td>
-                                                <td>₹ 149.00</td>
-                                                <td>
-                                                    <span class="badge rounded-pill text-bg-warning">Pending</span>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-truck"></i></a>
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i></a> -->
-                                                    <a href="{{('order-detail')}}" class="btn btn-warning btn-sm"><i class="fa-regular fa-eye"></i></a>
-                                                </td>
-                                                </tr>
-
-                                                <tr>
-                                                <th scope="row">001</th>
-                                                <td>John Doe</td>
-                                                <td>₹ 1499.00</td>
-                                                <td>₹ 149.00</td>
-                                                <td>
-                                                    <span class="badge rounded-pill text-bg-warning">Pending</span>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-truck"></i></a>
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fa-solid fa-check"></i></a> -->
-                                                    <a href="{{('order-detail')}}" class="btn btn-warning btn-sm"><i class="fa-regular fa-eye"></i></a>
-                                                </td>
-                                                </tr>   
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                        
-                                </div>
-                            </div>
-                        </div>      
                     </div>
-                </main>
-
-
-                
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
 @endsection
-                
