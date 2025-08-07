@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\EsewaHelper;
 
 
 class HomeController extends Controller
@@ -32,7 +34,9 @@ class HomeController extends Controller
         return view('home');
     }
     public function shop(){
-        $products = Product::all();
+          $products = Product::with('category')->where('product_quantity', '>', 0)->get();
+    $categories = Category::all();
+        
     return view('shop', compact('products'));
     // return view('shop');
    }
@@ -77,28 +81,50 @@ class HomeController extends Controller
     }  
 
     public function checkout(){
-         $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+         $user = Auth::user();
+        
+    
+    // Example: If you have a Cart model related to the user
+    $cartItems = $user->cartItems ?? [];  // fallback to empty array
+    $total = 0;
 
-    return view('checkout', compact('cartItems'));
-    } 
-     public function placeOrder(Request $request)
-    {
-        // Validate input
-        $request->validate([
-            'first_name'      => 'required|string',
-            'last_name'       => 'required|string',
-            'email'           => 'required|email',
-            'phone'           => 'required',
-            'address'         => 'required|string',
-            'district'        => 'required',
-            'payment_method'  => 'required|in:cod,esewa,imepay',
-        ]);
-
-        // You can store order in DB here (order table, order_items, etc.)
-        // For now, just return a simple success message
-
-        return redirect()->back()->with('success', 'Order placed successfully!');
+    foreach ($cartItems as $item) {
+        $total += $item->price * $item->quantity;
     }
+
+    return view('checkout', compact('cartItems', 'total'));
+}
+public function showCheckout($id)
+{
+    $product = Product::findOrFail($id);
+    return view('checkout', compact('product'));
+}
+
+    
+
+public function placeOrder(Request $request)
+{
+    $validated = $request->validate([
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'email' => 'required|email',
+        'phone' => 'required',
+        'address' => 'required',
+        'district' => 'required',
+    ]);
+
+    // Save order to DB (optional)
+    // ...
+
+    // Total from cart or fixed test value
+    $total = 100;
+
+    return view('esewa-payment', [
+        'total' => $total
+    ]);
+}
+
+
 
      public function about(){
         return view('about');

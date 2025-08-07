@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -72,30 +76,36 @@ public function orderDetail($id)
      public function products(){
         return view('admin/products');
      }
-       public function store(Request $request)
-    {
-        $request->validate([
-            'category_name' => 'required|string|max:255',
-            'product_name' => 'required|string|max:255',
-            'product_details' => 'required',
-            'product_price' => 'required|numeric',
-            'commission' => 'required|numeric',
-            'product_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+      public function store(Request $request)
+{
+    $request->validate([
+        'category_name' => 'required|string|max:255',
+        'product_name' => 'required|string|max:255',
+        'product_details' => 'required|string',
+        'product_price' => 'required|numeric',
+        'product_quantity' => 'required|integer|min:0',
+        'product_image' => 'required|image|max:2048',
+    ]);
 
-        $imagePath = $request->file('product_image')->store('products', 'public');
+    // First, find or create the category
+    $category = Category::firstOrCreate(['name' => $request->category_name]);
 
-        Product::create([
-            'category_name' => $request->category_name,
-            'product_name' => $request->product_name,
-            'product_details' => $request->product_details,
-            'product_price' => $request->product_price,
-            'commission' => $request->commission,
-            'product_image' => $imagePath,
-        ]);
+    // Handle the product image upload
+    $imagePath = $request->file('product_image')->store('products', 'public');
 
-        return back()->with('success', 'Product added successfully!');
-    }
+    // Create the product
+    Product::create([
+        'category_id' => $category->id,
+        'product_name' => $request->product_name,
+        'product_details' => $request->product_details,
+        'product_price' => $request->product_price,
+        'product_quantity' => $request->product_quantity,
+        'product_image' => $imagePath,
+    ]);
+
+    return redirect()->back()->with('success', 'Product added successfully!');
+}
+
     public function index()
 {
     return view('admin.index', [
@@ -106,5 +116,30 @@ public function orderDetail($id)
         'recentOrders'    => Order::latest()->take(5)->get(),
     ]);
 }
+
+ public function showLoginForm()
+    {
+        return view('admin.index'); // make sure this path matches
+    }
+ public function login(Request $request)
+    {
+         $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Check if admin user exists
+        $user = User::where('email', $request->email)
+                    ->where('role', 'admin') // make sure 'role' column exists
+                    ->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user); // log the user in
+            return redirect('/admin/index'); // or your desired route
+        }
+
+        return back()->withErrors(['Invalid credentials']);
+    }
+    }
     
-}
+

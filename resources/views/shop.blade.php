@@ -13,6 +13,7 @@
 				<div class="container">
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
+							
 							<div class="intro-excerpt">
 								<h1  >Shop</h1>
 								  <h2 >#Stay Home</h2>
@@ -26,7 +27,7 @@
 					</div>
 				</div>
 			</div>
-		<!-- End Hero Section -->
+
 
 		
 
@@ -279,25 +280,30 @@
 						</a>
 					</div>
 					<div class="container mt-5">
-    <h2>Shop Products</h2>
 
-    <div class="row">
-        @forelse($products as $product)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="{{ asset('storage/' . $product->product_image) }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->product_name }}</h5>
-                        <p class="card-text">{{ Str::limit($product->product_details, 60) }}</p>
-                        <p><strong>Rs.</strong> {{ $product->product_price }}</p>
-                        <span class="badge bg-info">{{ $product->category_name }}</span>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <p>No products found.</p>
-        @endforelse
-    </div>
+   <div class="row">
+    @forelse ($products as $product)
+        <div class="col-12 col-md-4 col-lg-3 mb-5">
+            <a class="product-item" href="{{ route('productdetails', ['id' => $product->id]) }}">
+                <img src="{{ asset('storage/' . $product->product_image) }}" class="img-fluid product-thumbnail" alt="{{ $product->product_name }}">
+                <h6>
+                    <span class="badge {{ $product->product_quantity > 0 ? 'bg-success' : 'bg-danger' }}">
+                        {{ $product->product_quantity > 0 ? 'Available' : 'Out of stock' }}
+                    </span>
+                </h6>
+                <h3 class="product-title">{{ $product->product_name }}</h3>
+                <strong class="product-price">Rs. {{ number_format($product->product_price, 2) }}</strong>
+
+                <span class="icon-cross">
+                    <img src="{{ url('assets/image/product/cross.svg') }}" class="img-fluid" alt="icon">
+                </span>
+            </a>
+        </div>
+    @empty
+        <p>No products found.</p>
+    @endforelse
+</div>
+
 </div>
 
 

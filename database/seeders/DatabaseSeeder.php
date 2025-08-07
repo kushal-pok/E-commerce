@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Hash;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -19,9 +19,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        $this->call(AdminUserSeeder::class);
+
 
          $this->call([
         OrderSeeder::class,
-    ]);
+    ]); User::create([
+    'name' => 'Admin',
+    'email' => 'admin@example.com',
+    'password' => Hash::make('admin123'),
+    'role' => 'admin'
+]);
+
     }
+
+   
 }

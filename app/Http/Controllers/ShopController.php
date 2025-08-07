@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ShopController extends Controller
 {
@@ -47,5 +48,51 @@ public function show($id)
     $product = $products[$id];
     return view('productdetails', compact('product'));
 }
+
+public function filter(Request $request)
+{
+    $query = Product::query();
+
+    // Optional: filter by search keyword
+    if ($request->filled('search')) {
+        $query->where('product_name', 'like', '%' . $request->search . '%');
+    }
+
+    // Optional: filter by category
+    if ($request->filled('category')) {
+        $query->where('category_id', $request->category);
+    }
+
+    $products = $query->get();
+    $categories = Category::all();
+
+    return view('shop', compact('products', 'categories'));
+}
+
+public function store(Request $request)
+{
+    $request->validate([
+        'product_name' => 'required|string|max:255',
+        'product_details' => 'required|string',
+        'product_price' => 'required|numeric',
+        'product_quantity' => 'required|integer|min:0',
+        'product_image' => 'required|image|max:2048',
+    ]);
+
+    $category = Category::firstOrCreate(['name' => $request->category_name]);
+
+    $imagePath = $request->file('product_image')->store('products', 'public');
+
+    Product::create([
+        'product_name' => $request->product_name,
+        'product_details' => $request->product_details,
+        'product_price' => $request->product_price,
+        'product_quantity' => $request->product_quantity,
+        'product_image' => $imagePath,
+    ]);
+
+    return redirect()->back()->with('success', 'Product added successfully!');
+}
+
 
 }

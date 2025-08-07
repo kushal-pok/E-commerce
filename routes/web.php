@@ -11,6 +11,12 @@ use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\EsewaController;
+use App\Http\Controllers\PaypalController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -70,9 +76,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.submit');
-    Route::post('/logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
+    // Route::get('/login', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginForm'])->name('login');
+    // Route::post('/login', [\App\Http\Controllers\Admin\AuthController::class, 'login'])->name('login.submit');
+    // Route::post('/logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('logout');
     Route::get('/admin/register', [AuthController::class, 'showRegisterForm'])->name('admin.register');
 Route::post('/admin/register', [AuthController::class, 'register'])->name('admin.register.submit');
 
@@ -108,5 +114,35 @@ Route::post('admin/users/{id}/block', [AdminController::class, 'blockUser'])->na
 Route::post('admin/users/{id}/unblock', [AdminController::class, 'unblockUser'])->name('admin.users.unblock');
 
 
-// Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');
 Route::get('/admin/add-user', [UserController::class, 'storeUser']);
+
+
+
+Route::post('paypal', [PaypalController::class,'paypal'])->name('paypal');
+Route::get('success', [PaypalController::class,'success'])->name('success');
+Route::get('cancel', [PaypalController::class,'cancel'])->name('cancel');
+// Route::match(['get', 'post'], 'cancel', [PaypalController::class, 'cancel'])->name('cancel');
+
+Route::get('/admin/login', function () {
+    return '
+    <form method="POST" action="/admin/login">
+        '.csrf_field().'
+        <input name="login" placeholder="Email or Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>';
+});
+
+Route::get('/admin/login', function () {
+    return view('admin.login');  // Your blade view file name without .blade.php
+})->name('admin.login.form');
+
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/admin/index', function () {
+//         return view('admin.index'); // Your admin dashboard view
+//     });
+// });
+
+Route::post('/shop', [ShopController::class, 'filter'])->name('shop.filter');
